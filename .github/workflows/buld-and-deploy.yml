@@ -63,7 +63,7 @@ jobs:
 
   pull-images-to_production:
 
-    needs : buld-and-deploy-to-hubs
+    needs : buld-and-deploy-to-hub
 
     runs-on: self-hosted
 

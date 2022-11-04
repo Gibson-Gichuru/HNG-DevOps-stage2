@@ -4,7 +4,7 @@ services:
 
   frontend:
 
-    image: 'githinji4gibson/frontEnd:latest'
+    image: 'githinji4gibson/frontend:latest'
 
     ports:
       - "3000:3000"
@@ -18,7 +18,7 @@ services:
 
   backend:
 
-    image: 'githinji4gibson/backendApi:latest'
+    image: 'githinji4gibson/backendapi:latest'
 
     ports:
       - "8000:8000"

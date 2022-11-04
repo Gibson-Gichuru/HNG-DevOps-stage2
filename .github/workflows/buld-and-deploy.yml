@@ -36,7 +36,7 @@ jobs:
 
           REPO_NAME: custom_images
 
-          IMAGE_NAME: backendApi
+          IMAGE_NAME: backendapi
 
         run: |
 
@@ -50,7 +50,7 @@ jobs:
 
         env:
 
-          IMAGE_NAME: frontEnd
+          IMAGE_NAME: frontend
 
         run: |
 

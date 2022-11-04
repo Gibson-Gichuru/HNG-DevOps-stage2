@@ -75,10 +75,6 @@ jobs:
 
       - name: Run the Containers
 
-        run: |
-
-          docker-compose down
-
-          docker-compose up -d
+        run: docker compose up -d
 
       

@@ -16,14 +16,18 @@ services:
 
         target: /etc/nginx/conf.d/default.conf
 
+    restart: always
+
   backend:
 
     image: 'githinji4gibson/backendapi:latest'
 
-    ports:
-      - "8000:8000"
+    expose:
+      - 8000
 
-    command: python manage.py runserver
+    command: python manage.py runserver 0.0.0.0:8000
+
+    restart: always
 
 
 

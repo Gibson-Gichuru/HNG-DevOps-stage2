@@ -12,7 +12,7 @@ services:
     volumes:
       - type: bind
 
-        source : ./nginx/default.config
+        source : ./nginx/default.conf
 
         target: /etc/nginx/conf.d/default.conf
 

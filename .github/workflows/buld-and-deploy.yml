@@ -1,0 +1,82 @@
+name: Build and deploy 
+
+on:
+
+  push:
+
+    branches:
+
+      - main
+
+jobs:
+
+  buld-and-deploy-to-hub:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: checking out the repo
+
+        uses: actions/checkout@v2
+
+      - name: Login To Docker
+
+        env:
+
+          DOCKER_USERNAME: ${{secrets.DOCKER_USERNAME}}
+
+          DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+
+        run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+
+      - name: Build And Push API Image
+
+        env: 
+
+          REPO_NAME: custom_images
+
+          IMAGE_NAME: backendApi
+
+        run: |
+
+          docker build -t $IMAGE_TAG ./api
+
+          docker image tag $IMAGE_NAME ${{secrets.DOCKER_USERNAME}}/$IMAGE_NAME:latest
+
+          docker image push ${{secrets.DOCKER_USERNAME}}/$IMAGE_NAME:latest
+
+      - name: Build Front-End Image
+
+        env:
+
+          IMAGE_NAME: frontEnd
+
+        run: |
+
+          docker build -t $IMAGE_NAME ./frontend
+
+          docker image tag $IMAGE_NAME ${{secrets.DOCKER_USERNAME}}/$IMAGE_NAME:latest
+
+          docker image push ${{secrets.DOCKER_USERNAME}}/$IMAGE_NAME:latest
+
+
+  pull-images-to_production:
+
+    needs : buld-and-deploy-to-hubs
+
+    runs-on: self-hosted
+
+    - name: Checkout repository
+
+      uses: action/checkout@v2
+
+    - name: Run the Containers
+
+      run: |
+
+        docker-compose down
+
+        docker-compose up -d
+
+      
